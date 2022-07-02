@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -x
+docker build -t bpf:ubuntu-20.04 .
+docker run -it --privileged bpf:ubuntu-20.04 bash

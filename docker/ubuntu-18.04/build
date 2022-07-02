@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -x
-docker build -t bpf .
-docker run -it --privileged bpf bash
+docker build -t bpf:ubuntu-18.04 .
+docker run -it --privileged bpf:ubuntu-18.04 bash

@@ -1,7 +1,13 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+
+# 错误的用法是在环境变量中全局生效，会导致 BASH 等命令操作异常 ?? 
+ENV DEBIAN_FRONTEND=nointeractive
 
 # 安装依赖项
-RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
+# DEBIAN_FRONTEND=noninteractive, 非交互式地进行操作 ? 好像没有用，不加上面的环境变量，还是会交互输入地域信息
+RUN DEBIAN_FRONTEND=noninteractive \
+    && sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
+    && echo "Asia/Shanghai" > /etc/timezone \
     && apt update \
     && apt install -y bison flex build-essential git cmake make libelf-dev clang llvm strace tar libfl-dev libssl-dev libedit-dev zlib1g-dev python  python3-distutils glibc-source libncurses5-dev binutils-dev bc telnet net-tools lsof tcpdump iotop sysstat vim wget
 
